@@ -1,18 +1,19 @@
+/* eslint-disable react/prop-types */
 import GroupList from "./GroupList";
 import { useDisclosure } from "@mantine/hooks";
 import { Modal } from "@mantine/core";
 import CreateGroup from "./CreateGroup";
-const Groups = () => {
+const Groups = ({ setTransformValue }) => {
   const [opened, { open, close }] = useDisclosure(false);
 
   return (
-    <section className="relative min-h-full">
+    <section className="relative min-h-full min-w-[100vw] md:min-w-max">
       <div className="h-24 sticky top-0 left-0 right-0 flex items-center justify-center">
         <h1 className="text-3xl font-medium">Pocket Notes</h1>
       </div>
 
       <div className="max-h-[calc(100vh-6rem)] overflow-y-auto">
-        <GroupList />
+        <GroupList setTransformValue={setTransformValue} />
       </div>
 
       <button

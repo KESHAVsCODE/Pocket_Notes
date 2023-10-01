@@ -1,21 +1,11 @@
-import Groups from "./Groups";
-import Notes from "./Notes";
+import PocketNotes from "./PocketNotes/PocketNotes";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
-
-const AppLayout = () => {
-  return (
-    <div className="min-h-[100vh] font-roboto grid grid-flow-col grid-cols-customColumns">
-      <Groups />
-      <Notes />
-    </div>
-  );
-};
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<AppLayout />}></Route>
+        <Route path="/" element={<PocketNotes />}></Route>
       </Routes>
     </BrowserRouter>
   );

@@ -25,6 +25,7 @@ export default {
       },
       gridTemplateColumns: {
         customColumns: "1fr 2.5fr",
+        fullWidthColumns: "100vw 100vw",
       },
       gridTemplateRows: {
         customRows: "1fr 7fr 2fr",

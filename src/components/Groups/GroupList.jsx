@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
@@ -10,7 +11,7 @@ const groupAvatar = [
   "#6691FF",
   "#FF66F0",
 ];
-const GroupList = () => {
+const GroupList = ({ setTransformValue }) => {
   const groups = JSON.parse(localStorage.getItem("groups")) || [];
 
   const [selectedGroup, setSelectedGroup] = useState("");
@@ -26,6 +27,7 @@ const GroupList = () => {
     const id = e.target.getAttribute("data-id");
     setSelectedGroup(id);
     setSearchParams({ groupName });
+    if (window.innerWidth <= 768) setTransformValue(-1);
   };
 
   if (groups.length === 0) {
