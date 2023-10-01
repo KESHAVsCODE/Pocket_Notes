@@ -50,7 +50,7 @@ const CreateGroup = ({ closeModal }) => {
       notes: [],
     };
 
-    localStorage.setItem("groups", JSON.stringify([newGroup, ...groups]));
+    localStorage.setItem("groups", JSON.stringify([...groups, newGroup]));
     console.log(JSON.parse(localStorage.getItem("groups")));
     closeModal();
   };

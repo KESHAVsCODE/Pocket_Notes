@@ -1,35 +1,46 @@
 import { useSearchParams } from "react-router-dom";
 import CreateNotes from "./CreateNotes";
-import ListOfNotes from "./ListOfNotes";
+import NotesList from "./NotesList";
 import DefaultPage from "../DefaultPage";
+import { useState } from "react";
 const Notes = () => {
   const [searchParams] = useSearchParams();
 
+  const [newNoteCreated, setNewNoteCreated] = useState(false);
+
   const groupName = searchParams.get("groupName");
 
-  const groupData = JSON.parse(localStorage.getItem("groups")).find(
+  const groupData = JSON.parse(localStorage.getItem("groups"))?.find(
     (group) => group.groupName === groupName
   );
 
-  console.log(groupData);
-
   return (
     <>
-      <section className="w-full min-h-full bg-notesBackgroundColor">
+      <section className="w-full h-[100vh] bg-notesBackgroundColor grid grid-rows-customRows">
         {groupData ? (
           <>
-            <header className="h-24 bg-lightBlue flex items-center">
-              <div className="flex p-4 items-center text-white gap-5 font-medium text-lg">
+            <header className="bg-lightBlue flex items-center">
+              <div className="flex px-4 py-2 items-center text-white gap-4 font-medium text-lg">
                 <p className="w-14 h-14  text-xl flex items-center justify-center rounded-full  bg-[#6499E9]">
                   <span>{groupData.shortGroupName}</span>
                 </p>
                 <p className="text-base">{groupData.groupName}</p>
               </div>
             </header>
-            <main className="relative w-full max-h-[calc(100vh-6rem)] overflow-y-auto">
-              <ListOfNotes groupName={groupName} />
-              <CreateNotes groupName={groupName} />
+
+            <main className="relative w-full overflow-y-auto">
+              <NotesList
+                groupName={groupName}
+                newNoteCreated={newNoteCreated}
+              />
             </main>
+
+            <footer>
+              <CreateNotes
+                groupName={groupName}
+                setNewNoteCreated={setNewNoteCreated}
+              />
+            </footer>
           </>
         ) : (
           <DefaultPage />

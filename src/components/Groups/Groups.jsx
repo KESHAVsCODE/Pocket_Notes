@@ -2,11 +2,11 @@ import GroupList from "./GroupList";
 import { useDisclosure } from "@mantine/hooks";
 import { Modal } from "@mantine/core";
 import CreateGroup from "./CreateGroup";
-const GroupNotes = () => {
+const Groups = () => {
   const [opened, { open, close }] = useDisclosure(false);
 
   return (
-    <section className="relative min-h-full w-full md:min-w-[400px] md:max-w-[400px]">
+    <section className="relative min-h-full">
       <div className="h-24 sticky top-0 left-0 right-0 flex items-center justify-center">
         <h1 className="text-3xl font-medium">Pocket Notes</h1>
       </div>
@@ -29,4 +29,4 @@ const GroupNotes = () => {
   );
 };
 
-export default GroupNotes;
+export default Groups;

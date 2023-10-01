@@ -16,7 +16,7 @@ const months = [
   "Nov",
   "Dec",
 ];
-const CreateNotes = ({ groupName }) => {
+const CreateNotes = ({ groupName, setNewNoteCreated }) => {
   const [noteText, setNotesText] = useState("");
 
   function getCurrentDateTime() {
@@ -54,11 +54,13 @@ const CreateNotes = ({ groupName }) => {
     }
 
     localStorage.setItem("groups", JSON.stringify(groupData));
+
     setNotesText("");
+    setNewNoteCreated((prev) => !prev);
   };
   return (
-    <section className="w-[50%] fixed bottom-0 p-4 bg-lightBlue">
-      <div className="flex flex-col gap-2 p-3  bg-white rounded-md ">
+    <section className="p-4 bg-lightBlue">
+      <div className="flex flex-col gap-2 p-2 bg-white rounded-md ">
         <textarea
           name="notes"
           id=""

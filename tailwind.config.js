@@ -23,6 +23,12 @@ export default {
       boxShadow: {
         notesItem: "0 4px 20px 0 rgba(0, 0, 0, 0.25)",
       },
+      gridTemplateColumns: {
+        customColumns: "1fr 2.5fr",
+      },
+      gridTemplateRows: {
+        customRows: "1fr 7fr 2fr",
+      },
     },
   },
   plugins: [],
