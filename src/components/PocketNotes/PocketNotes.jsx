@@ -7,15 +7,13 @@ const PocketNotes = () => {
 
   const handleScreenResize = () => {
     const screenWidth = window.innerWidth;
-
     if (screenWidth >= 768) {
       setTransformValue(0);
     }
   };
+
   useEffect(() => {
     window.addEventListener("resize", handleScreenResize);
-
-    // Clean up the event listener when the component unmounts
     return () => {
       window.removeEventListener("resize", handleScreenResize);
     };

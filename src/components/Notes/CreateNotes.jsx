@@ -70,8 +70,15 @@ const CreateNotes = ({ groupName, setNewNoteCreated }) => {
           placeholder="Write here ..."
           className="w-full resize-none outline-none"
         ></textarea>
-        <button className="self-end w-6" onClick={handleSaveNotesClick}>
-          <img src={noteText ? saveEnabled : saveDisabled} alt="save-notes" />
+        <button
+          disabled={noteText.trim() ? false : true}
+          className="self-end w-6"
+          onClick={handleSaveNotesClick}
+        >
+          <img
+            src={noteText.trim() ? saveEnabled : saveDisabled}
+            alt="save-notes"
+          />
         </button>
       </div>
     </section>
