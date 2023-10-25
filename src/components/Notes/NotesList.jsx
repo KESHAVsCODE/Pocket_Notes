@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-const NotesList = ({ groupData, setGroupData }) => {
+const NotesList = ({ groupData, setGroupData, setNotesText }) => {
   const { notes } = groupData;
 
   if (notes.length === 0) {
@@ -11,12 +11,11 @@ const NotesList = ({ groupData, setGroupData }) => {
   }
 
   const handleUpdateNoteClick = (noteIndex) => {
-    const filteredNotesList = notes.filter(
-      (notes, index) => index !== noteIndex
-    );
+    const notesText = groupData.notes[noteIndex].notesText;
 
-    setGroupData({ ...groupData, notes: filteredNotesList });
-    localStorage.setItem("groups", JSON.stringify(filteredNotesList));
+    handleDeleteNoteClick(noteIndex);
+    console.log(notesText);
+    setNotesText(notesText);
   };
 
   const handleDeleteNoteClick = (noteIndex) => {
@@ -39,10 +38,11 @@ const NotesList = ({ groupData, setGroupData }) => {
     <>
       <ul className="p-4 flex flex-col gap-4">
         {notes.map((note, index) => {
+          console.log(note);
           return (
             <li key={index}>
               <article className="px-4 py-6 bg-white rounded-md shadow-notesItem">
-                <p className="text-sm md:text-lg">{note.noteText}</p>
+                <p className="text-sm md:text-lg">{note.notesText}</p>
                 <div className="mt-4 flex justify-between">
                   <div className=" flex gap-4">
                     <i

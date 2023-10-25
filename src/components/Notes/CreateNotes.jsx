@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+// import { useState } from "react";
 import saveDisabled from "../../assets/save_disabled.png";
 import saveEnabled from "../../assets/save_enabled.png";
 const months = [
@@ -16,9 +16,7 @@ const months = [
   "Nov",
   "Dec",
 ];
-const CreateNotes = ({ groupData, setGroupData }) => {
-  const [noteText, setNotesText] = useState("");
-
+const CreateNotes = ({ groupData, setGroupData, notesText, setNotesText }) => {
   function getCurrentDateTime() {
     const now = new Date();
     const day = now.getDate();
@@ -43,7 +41,7 @@ const CreateNotes = ({ groupData, setGroupData }) => {
 
     const note = {
       createdAt: currentDateTime,
-      noteText,
+      notesText,
     };
 
     const updatedGroupData = {
@@ -70,18 +68,18 @@ const CreateNotes = ({ groupData, setGroupData }) => {
           name="notes"
           id=""
           rows="4"
-          value={noteText}
+          value={notesText}
           onChange={(e) => setNotesText(e.target.value)}
           placeholder="Write here ..."
           className="w-full resize-none outline-none"
         ></textarea>
         <button
-          disabled={noteText.trim() ? false : true}
+          disabled={notesText.trim() ? false : true}
           className="self-end w-6"
           onClick={handleSaveNotesClick}
         >
           <img
-            src={noteText.trim() ? saveEnabled : saveDisabled}
+            src={notesText.trim() ? saveEnabled : saveDisabled}
             alt="save-notes"
           />
         </button>

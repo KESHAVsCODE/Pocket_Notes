@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 const Notes = ({ setTransformValue }) => {
   const [searchParams] = useSearchParams();
 
+  const [notesText, setNotesText] = useState("");
   const [groupData, setGroupData] = useState(null);
 
   useEffect(() => {
@@ -38,11 +39,20 @@ const Notes = ({ setTransformValue }) => {
             </header>
 
             <main className="relative w-full overflow-y-auto">
-              <NotesList groupData={groupData} setGroupData={setGroupData} />
+              <NotesList
+                groupData={groupData}
+                setGroupData={setGroupData}
+                setNotesText={setNotesText}
+              />
             </main>
 
             <footer>
-              <CreateNotes groupData={groupData} setGroupData={setGroupData} />
+              <CreateNotes
+                groupData={groupData}
+                setGroupData={setGroupData}
+                notesText={notesText}
+                setNotesText={setNotesText}
+              />
             </footer>
           </>
         ) : (
