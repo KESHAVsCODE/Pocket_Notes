@@ -1,16 +1,39 @@
 /* eslint-disable react/prop-types */
-const NotesList = ({ groupName }) => {
-  const notes = JSON.parse(localStorage.getItem("groups")).find(
-    (group) => group.groupName === groupName
-  ).notes;
+const NotesList = ({ groupData, setGroupData }) => {
+  const { notes } = groupData;
 
-  if (notes?.length === 0) {
+  if (notes.length === 0) {
     return (
       <p className="text-center text-xl text-zinc-600 py-2">
         Notes not created yet
       </p>
     );
   }
+
+  const handleUpdateNoteClick = (noteIndex) => {
+    const filteredNotesList = notes.filter(
+      (notes, index) => index !== noteIndex
+    );
+
+    setGroupData({ ...groupData, notes: filteredNotesList });
+    localStorage.setItem("groups", JSON.stringify(filteredNotesList));
+  };
+
+  const handleDeleteNoteClick = (noteIndex) => {
+    const filteredNotesList = notes.filter(
+      (notes, index) => index !== noteIndex
+    );
+
+    const groups = JSON.parse(localStorage.getItem("groups"));
+    const group = groups.find(
+      (group) => group.groupName === groupData.groupName
+    );
+
+    group.notes = filteredNotesList;
+    localStorage.setItem("groups", JSON.stringify(groups));
+
+    setGroupData({ ...groupData, notes: filteredNotesList });
+  };
 
   return (
     <>
@@ -20,9 +43,21 @@ const NotesList = ({ groupName }) => {
             <li key={index}>
               <article className="px-4 py-6 bg-white rounded-md shadow-notesItem">
                 <p className="text-sm md:text-lg">{note.noteText}</p>
-                <p className="pt-4 text-sm text-notesTextColor font-medium  text-end md:text-base">
-                  {note.createdAt}
-                </p>
+                <div className="mt-4 flex justify-between">
+                  <div className=" flex gap-4">
+                    <i
+                      onClick={() => handleUpdateNoteClick(index)}
+                      className="fa-regular fa-pen-to-square hover:text-blue-400 cursor-pointer"
+                    ></i>
+                    <i
+                      onClick={() => handleDeleteNoteClick(index)}
+                      className="fa-solid fa-trash-can hover:text-red-500 cursor-pointer"
+                    ></i>
+                  </div>
+                  <p className="text-sm text-notesTextColor font-medium md:text-base">
+                    {note.createdAt}
+                  </p>
+                </div>
               </article>
             </li>
           );

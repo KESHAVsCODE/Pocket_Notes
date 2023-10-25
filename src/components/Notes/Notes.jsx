@@ -3,17 +3,19 @@ import { useSearchParams } from "react-router-dom";
 import CreateNotes from "./CreateNotes";
 import NotesList from "./NotesList";
 import DefaultPage from "../DefaultPage";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 const Notes = ({ setTransformValue }) => {
   const [searchParams] = useSearchParams();
 
-  const [newNoteCreated, setNewNoteCreated] = useState(false);
+  const [groupData, setGroupData] = useState(null);
 
-  const groupName = searchParams.get("groupName");
-
-  const groupData = JSON.parse(localStorage.getItem("groups"))?.find(
-    (group) => group.groupName === groupName
-  );
+  useEffect(() => {
+    const groupName = searchParams.get("groupName");
+    const groupData = JSON.parse(localStorage.getItem("groups"))?.find(
+      (group) => group.groupName === groupName
+    );
+    if (groupData) setGroupData({ ...groupData });
+  }, [searchParams]);
 
   return (
     <>
@@ -36,17 +38,11 @@ const Notes = ({ setTransformValue }) => {
             </header>
 
             <main className="relative w-full overflow-y-auto">
-              <NotesList
-                groupName={groupName}
-                newNoteCreated={newNoteCreated}
-              />
+              <NotesList groupData={groupData} setGroupData={setGroupData} />
             </main>
 
             <footer>
-              <CreateNotes
-                groupName={groupName}
-                setNewNoteCreated={setNewNoteCreated}
-              />
+              <CreateNotes groupData={groupData} setGroupData={setGroupData} />
             </footer>
           </>
         ) : (

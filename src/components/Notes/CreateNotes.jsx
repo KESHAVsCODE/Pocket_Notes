@@ -16,7 +16,7 @@ const months = [
   "Nov",
   "Dec",
 ];
-const CreateNotes = ({ groupName, setNewNoteCreated }) => {
+const CreateNotes = ({ groupData, setGroupData }) => {
   const [noteText, setNotesText] = useState("");
 
   function getCurrentDateTime() {
@@ -38,7 +38,7 @@ const CreateNotes = ({ groupName, setNewNoteCreated }) => {
 
   const handleSaveNotesClick = (e) => {
     e.preventDefault();
-    const groupData = JSON.parse(localStorage.getItem("groups"));
+    const groups = JSON.parse(localStorage.getItem("groups"));
     const currentDateTime = getCurrentDateTime();
 
     const note = {
@@ -46,17 +46,22 @@ const CreateNotes = ({ groupName, setNewNoteCreated }) => {
       noteText,
     };
 
-    for (let i = 0; i < groupData.length; i++) {
-      if (groupData[i].groupName === groupName) {
-        groupData[i].notes = [note, ...groupData[i].notes];
+    const updatedGroupData = {
+      ...groupData,
+      notes: [note, ...groupData.notes],
+    };
+
+    for (let i = 0; i < groups.length; i++) {
+      if (groups[i].groupName === groupData.groupName) {
+        groups[i] = updatedGroupData;
         break;
       }
     }
 
-    localStorage.setItem("groups", JSON.stringify(groupData));
+    localStorage.setItem("groups", JSON.stringify(groups));
 
     setNotesText("");
-    setNewNoteCreated((prev) => !prev);
+    setGroupData(updatedGroupData);
   };
   return (
     <section className="p-4 bg-lightBlue">
